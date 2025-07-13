@@ -1,0 +1,4 @@
+[submodule "rt-thread"]
+	path = rt-thread
+	url = git@github.com:xinliu0260/rt-thread.git
+	branch = CFA-dev
