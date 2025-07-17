@@ -1,0 +1,6 @@
+mainmenu "CarpFlow Autopilot Configuration"
+
+RTT_DIR := ../../../../rt-thread
+PKGS_DIR := packages
+
+rsource "$(RTT_DIR)/Kconfig"

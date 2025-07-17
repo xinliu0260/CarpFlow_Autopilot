@@ -16,7 +16,7 @@
 #   + !/build/ 不忽略根目录下的 build 目录及其内容。
 
 
-/.Build-Env/
+/.build-env/
 /lib/micro-xrce-dds-client/
 /lib/dronecan/
 /model/
