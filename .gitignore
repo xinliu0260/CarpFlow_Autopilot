@@ -17,10 +17,7 @@
 
 
 /.build-env/
-/lib/micro-xrce-dds-client/
-/lib/dronecan/
-/model/
-
-*.uvguix.*
-*.ewp
-*.eww
+build/
+.cache/
+.idea/
+.vercel/

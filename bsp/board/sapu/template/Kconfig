@@ -4,3 +4,4 @@ RTT_DIR := ../../../../rt-thread
 PKGS_DIR := packages
 
 rsource "$(RTT_DIR)/Kconfig"
+rsource "driver/Kconfig"

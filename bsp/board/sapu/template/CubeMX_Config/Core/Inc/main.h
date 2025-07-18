@@ -28,18 +28,6 @@ extern "C" {
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32h7xx_hal.h"
-#include "stm32h7xx_ll_rcc.h"
-#include "stm32h7xx_ll_crs.h"
-#include "stm32h7xx_ll_bus.h"
-#include "stm32h7xx_ll_system.h"
-#include "stm32h7xx_ll_exti.h"
-#include "stm32h7xx_ll_cortex.h"
-#include "stm32h7xx_ll_utils.h"
-#include "stm32h7xx_ll_pwr.h"
-#include "stm32h7xx_ll_dma.h"
-#include "stm32h7xx_ll_spi.h"
-#include "stm32h7xx_ll_tim.h"
-#include "stm32h7xx_ll_gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -60,6 +48,8 @@ extern "C" {
 /* USER CODE BEGIN EM */
 
 /* USER CODE END EM */
+
+void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
 
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
@@ -86,27 +76,27 @@ void MX_FDCAN1_Init(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define AD33V_Pin LL_GPIO_PIN_3
+#define AD33V_Pin GPIO_PIN_3
 #define AD33V_GPIO_Port GPIOF
-#define ADPM_Pin LL_GPIO_PIN_4
+#define ADPM_Pin GPIO_PIN_4
 #define ADPM_GPIO_Port GPIOF
-#define AD54V_Pin LL_GPIO_PIN_5
+#define AD54V_Pin GPIO_PIN_5
 #define AD54V_GPIO_Port GPIOF
-#define RGB_G_Pin LL_GPIO_PIN_1
+#define RGB_G_Pin GPIO_PIN_1
 #define RGB_G_GPIO_Port GPIOA
-#define RGB_R_Pin LL_GPIO_PIN_2
+#define RGB_R_Pin GPIO_PIN_2
 #define RGB_R_GPIO_Port GPIOA
-#define RGB_B_Pin LL_GPIO_PIN_3
+#define RGB_B_Pin GPIO_PIN_3
 #define RGB_B_GPIO_Port GPIOA
-#define SPI1_DR_Pin LL_GPIO_PIN_4
+#define SPI1_DR_Pin GPIO_PIN_4
 #define SPI1_DR_GPIO_Port GPIOC
-#define SPI1_CS_Pin LL_GPIO_PIN_5
+#define SPI1_CS_Pin GPIO_PIN_5
 #define SPI1_CS_GPIO_Port GPIOC
-#define AT45_CS_Pin LL_GPIO_PIN_12
+#define AT45_CS_Pin GPIO_PIN_12
 #define AT45_CS_GPIO_Port GPIOA
-#define MR_CS_Pin LL_GPIO_PIN_15
+#define MR_CS_Pin GPIO_PIN_15
 #define MR_CS_GPIO_Port GPIOA
-#define LED_Pin LL_GPIO_PIN_3
+#define LED_Pin GPIO_PIN_3
 #define LED_GPIO_Port GPIOD
 
 /* USER CODE BEGIN Private defines */

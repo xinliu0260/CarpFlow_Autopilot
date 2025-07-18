@@ -6,10 +6,8 @@ extern "C" {
 #endif
 
 #include "stm32h7xx.h"
-#include <rtthread.h>
 #include "rtconfig.h"
-
-
+#include "rtthread.h"
 // Board Information
 #define TARGET_NAME  "SAPU"
 

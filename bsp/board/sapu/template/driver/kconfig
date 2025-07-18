@@ -1,0 +1,273 @@
+menu "Hardware Drivers Config"
+
+menu "Board Feature Configuration"
+
+    config RT_USING_COMPONENTS_INIT
+    bool "Use the automatic initialization feature of the rt-thread component"
+    default n
+    
+    config RT_USING_USER_MAIN
+        bool "The user handles the rt-thread startup process by themselves"
+        default n
+
+        if RT_USING_USER_MAIN
+            config RT_MAIN_THREAD_STACK_SIZE
+                int "Set main thread stack size"
+                default 6144 if ARCH_CPU_64BIT
+                default 2048
+
+            config RT_MAIN_THREAD_PRIORITY
+                int "Set main thread priority"
+                default 4   if RT_THREAD_PRIORITY_8
+                default 10  if RT_THREAD_PRIORITY_32
+                default 85  if RT_THREAD_PRIORITY_256
+        endif
+
+    config ADD_ALL_HAL_LIB
+    bool "Add all HAL library source files in a non-customized manner"
+    default n
+    
+    config USE_ARM_DSP
+    bool "Use the CMSIS-DSP library provided by ARM"
+    default y
+endmenu
+
+menu "Core Configuration"
+    config ARCH_ARM_CORTEX_M7
+    bool "Choose cortex-m7 as the core architecture"
+    default y
+
+    config BSP_SCB_ENABLE_I_CACHE
+    bool "Enable I-Cache"
+    default y
+
+    config BSP_SCB_ENABLE_D_CACHE
+    bool "Enable D-Cache"
+    default y
+
+    config DATA_IN_D2_SRAM
+    bool "The data will be stored in Domain 2 RAM: SRAM1:128KB, SRAM2:128KB, SRAM3:32KB (0x30000000 ~ 0x3004FFFF)"
+    default y
+
+    config ENABLE_FPU_DIRECT
+    bool "Use the global macro definition to directly indicate that FPU is enabled"
+    default y
+
+endmenu
+
+
+
+menu "Onboard Peripheral Drivers"
+
+endmenu
+
+menu "On-chip Peripheral Drivers"
+
+    config BSP_USING_GPIO
+        bool "Enable GPIO"
+        select RT_USING_PIN
+        default y
+
+    menuconfig BSP_USING_UART
+        bool "Enable UART"
+        default y
+        select RT_USING_SERIAL
+        if BSP_USING_UART
+            config BSP_USING_UART1
+                bool "Enable UART1"
+                default y
+            config BSP_UART1_RX_BUFSIZE
+                int "Set UART1 RX INT/DMA buffer size"
+                depends on BSP_USING_UART1
+                default 256
+            config BSP_UART1_TX_BUFSIZE
+                int "Set UART1 TX INT/DMA buffer size"
+                depends on BSP_USING_UART1
+                default 256
+            config BSP_UART1_RX_USING_DMA
+                bool "Enable UART1 RX DMA"
+                depends on BSP_USING_UART1 && RT_SERIAL_USING_DMA
+                default n
+            config BSP_UART1_TX_USING_DMA
+                bool "Enable UART1 TX DMA"
+                depends on BSP_USING_UART1 && RT_SERIAL_USING_DMA
+                default n
+    
+            config BSP_USING_UART2
+                bool "Enable UART2"
+                default y
+            config BSP_UART2_RX_BUFSIZE
+                int "Set UART2 RX INT/DMA buffer size"
+                depends on BSP_USING_UART2
+                default 256
+            config BSP_UART2_TX_BUFSIZE
+                int "Set UART2 TX INT/DMA buffer size"
+                depends on BSP_USING_UART2
+                default 256
+            config BSP_UART2_RX_USING_DMA
+                bool "Enable UART2 RX DMA"
+                depends on BSP_USING_UART2 && RT_SERIAL_USING_DMA
+                default y
+            config BSP_UART2_TX_USING_DMA
+                bool "Enable UART2 TX DMA"
+                depends on BSP_USING_UART2 && RT_SERIAL_USING_DMA
+                default y
+
+            config BSP_USING_UART3
+                bool "Enable UART3"
+                default n
+            config BSP_UART3_RX_BUFSIZE
+                int "Set UART3 RX INT/DMA buffer size"
+                depends on BSP_USING_UART3
+                default 256
+            config BSP_UART3_TX_BUFSIZE
+                int "Set UART3 TX INT/DMA buffer size"
+                depends on BSP_USING_UART3
+                default 256
+            config BSP_UART3_RX_USING_DMA
+                bool "Enable UART3 RX DMA"
+                depends on BSP_USING_UART3 && RT_SERIAL_USING_DMA
+                default n
+            config BSP_UART3_TX_USING_DMA
+                bool "Enable UART3 TX DMA"
+                depends on BSP_USING_UART3 && RT_SERIAL_USING_DMA
+                default n
+
+            config BSP_USING_UART4
+                bool "Enable UART4 (RS422 on board)"
+                default n
+            config BSP_UART4_RX_BUFSIZE
+                int "Set UART4 RX INT/DMA buffer size"
+                depends on BSP_USING_UART4
+                default 256
+            config BSP_UART4_TX_BUFSIZE
+                int "Set UART4 TX INT/DMA buffer size"
+                depends on BSP_USING_UART4
+                default 256
+
+            config BSP_UART4_RX_USING_DMA
+                bool "Enable UART4 RX DMA"
+                depends on BSP_USING_UART4 && RT_SERIAL_USING_DMA
+                default n
+            config BSP_UART4_TX_USING_DMA
+                bool "Enable UART4 TX DMA"
+                depends on BSP_USING_UART4 && RT_SERIAL_USING_DMA
+                default n 
+
+            config BSP_USING_UART5
+                bool "Enable UART5 (SBus on board)"
+                default y
+            config BSP_UART5_RX_BUFSIZE
+                int "Set UART5 RX INT/DMA buffer size"
+                depends on BSP_USING_UART5
+                default 256
+            config BSP_UART5_TX_BUFSIZE
+                int "Set UART5 TX INT/DMA buffer size"
+                depends on BSP_USING_UART5
+                default 0
+
+            config BSP_UART5_RX_USING_DMA
+                bool "Enable UART5 RX DMA"
+                depends on BSP_USING_UART5 && RT_SERIAL_USING_DMA
+                default y
+            config BSP_UART5_TX_USING_DMA
+                bool "Enable UART5 TX DMA"
+                depends on BSP_USING_UART5 && RT_SERIAL_USING_DMA
+                default n
+
+            config BSP_USING_UART6
+                bool "Enable UART6"
+                default y
+            config BSP_UART6_RX_BUFSIZE
+                int "Set UART6 RX INT/DMA buffer size"
+                depends on BSP_USING_UART6
+                default 256
+            config BSP_UART6_TX_BUFSIZE
+                int "Set UART6 TX INT/DMA buffer size"
+                depends on BSP_USING_UART6
+                default 256
+            config BSP_UART6_RX_USING_DMA
+                bool "Enable UART6 RX DMA"
+                depends on BSP_USING_UART6 && RT_SERIAL_USING_DMA
+                default y
+            config BSP_UART6_TX_USING_DMA
+                bool "Enable UART6 TX DMA"
+                depends on BSP_USING_UART6 && RT_SERIAL_USING_DMA
+                default y   
+
+            config BSP_USING_UART7
+                bool "Enable UART7 (RS232 on board)"
+                default n
+            config BSP_UART7_RX_BUFSIZE
+                int "Set UART7 RX INT/DMA buffer size"
+                depends on BSP_USING_UART7
+                default 256
+            config BSP_UART7_TX_BUFSIZE
+                int "Set UART7 TX INT/DMA buffer size"
+                depends on BSP_USING_UART7
+                default 256
+            config BSP_UART7_RX_USING_DMA
+                bool "Enable UART7 RX DMA"
+                depends on BSP_USING_UART7 && RT_SERIAL_USING_DMA
+                default n   
+            config BSP_UART7_TX_USING_DMA
+                bool "Enable UART7 TX DMA"
+                depends on BSP_USING_UART7 && RT_SERIAL_USING_DMA
+                default n   
+        
+            config BSP_USING_UART8
+                bool "Enable UART8"
+                default y
+            config BSP_UART8_RX_BUFSIZE
+                int "Set UART8 RX INT/DMA buffer size"
+                depends on BSP_USING_UART8
+                default 256
+            config BSP_UART8_TX_BUFSIZE
+                int "Set UART8 TX INT/DMA buffer size"
+                depends on BSP_USING_UART8
+                default 256
+            config BSP_UART8_RX_USING_DMA
+                bool "Enable UART8 RX DMA"
+                depends on BSP_USING_UART8 && RT_SERIAL_USING_DMA
+                default y
+            config BSP_UART8_TX_USING_DMA
+                bool "Enable UART8 TX DMA"
+                depends on BSP_USING_UART8 && RT_SERIAL_USING_DMA
+                default y
+        endif
+
+    config BSP_USING_ADC
+        bool "Enable ADC"
+        default y
+
+    menuconfig BSP_USING_SPI
+        bool "Enable SPI"
+        default y
+        if BSP_USING_SPI
+            config BSP_USING_SPI1
+                bool "Enable SPI1"
+                default y
+            config BSP_USING_SPI3
+                bool "Enable SPI3 for MR25H10"
+                default y
+        endif
+
+    config BSP_USING_I2C
+        bool "Enable I2C"
+        default n
+
+    config BSP_USING_CAN
+        bool "Enable CAN"
+        default n
+    
+    config BSP_USING_SDMMC
+        bool "Enable SDMMC"
+        default n
+
+endmenu
+
+menu "Board extended module Drivers"
+
+endmenu
+
+endmenu
